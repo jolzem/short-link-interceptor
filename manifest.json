@@ -1,0 +1,26 @@
+{
+  "description": "Short Link Interceptor",
+  "manifest_version": 2,
+  "name": "short-link-interceptor",
+  "version": "1.0",
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://bit.ly/",
+    "*://tiny.cc/",
+    "*://tiny.one/",
+    "*://tinyurl.com/",
+    "*://is.gd/",
+    "*://urlz.fr/",
+    "*://snip.ly/",
+    "*://rb.gy/",
+    "*://cutt.ly/",
+    "*://t.ly/"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
+
