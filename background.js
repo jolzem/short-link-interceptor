@@ -25,4 +25,3 @@ browser.webRequest.onBeforeRequest.addListener(
   ]},
   ["blocking"]
 );
-

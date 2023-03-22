@@ -1,8 +1,9 @@
 {
-  "description": "Short Link Interceptor",
   "manifest_version": 2,
-  "name": "short-link-interceptor",
+  "name": "Short Link Interceptor",
   "version": "1.0",
+
+  "description": "Add a confirmation page when clicking on shortened links.",
 
   "icons" : {
     "48": "icons/icon.png"
