@@ -16,13 +16,21 @@ pattern = [
 function redirect(requestDetails) {
   let { tabId } = requestDetails;
   let redirectUrl = browser.runtime.getURL('index.html?url=' + requestDetails.url);
-  if(navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
-      chrome.tabs.update(tabId, {
-          url: redirectUrl
-      })
-      return {
-          cancel: true
-      }
+  if(navigator.userAgent.toLowerCase().includes("shortlinkinterceptor")) {
+    console.log("request from ShortLinkInterceptor")
+    chrome.tabs.update(tabId, {
+      url: requestDetails.url
+    })
+    return {
+      cancel: false
+    }
+  } else if(navigator.userAgent.toLowerCase().indexOf("firefox") != -1) {
+    chrome.tabs.update(tabId, {
+        url: redirectUrl
+    })
+    return {
+        cancel: true
+    }
   } else return { redirectUrl }
 }
 
