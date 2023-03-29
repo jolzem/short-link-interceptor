@@ -1,27 +1,34 @@
+pattern = [
+  "https://bit.ly/*",
+  "https://t.ly/*",
+  "https://tiny.cc/*",
+  "https://tiny.one/*",
+  "https://tinyurl.com/*",
+  "https://is.gd/*",
+  "https://urlz.fr/*",
+  "https://snip.ly/*",
+  "https://rb.gy/*",
+  "https://cutt.ly/*",
+  "https://t.ly/*"
+]
+
+// source: https://stackoverflow.com/questions/36063233/redirecting-to-extension-resource-in-firefox
 function redirect(requestDetails) {
-  const targetUrl = `https://unshorten.link/check?url=${requestDetails.url}`;
-  if (requestDetails.url === targetUrl) {
-    return;
-  }
-  return {
-    redirectUrl: targetUrl
-  };
+  let { tabId } = requestDetails;
+  let redirectUrl = browser.runtime.getURL('index.html?url=' + requestDetails.url);
+  if(navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+      chrome.tabs.update(tabId, {
+          url: redirectUrl
+      })
+      return {
+          cancel: true
+      }
+  } else return { redirectUrl }
 }
 
 browser.webRequest.onBeforeRequest.addListener(
   redirect,
-  {urls:[
-    "*://bit.ly/*",
-    "*://t.ly/*",
-    "*://tiny.cc/*",
-    "*://tiny.one/*",
-    "*://tinyurl.com/*",
-    "*://is.gd/*",
-    "*://urlz.fr/*",
-    "*://snip.ly/*",
-    "*://rb.gy/*",
-    "*://cutt.ly/*",
-    "*://t.ly/*"
-  ]},
+  { urls: pattern },
   ["blocking"]
 );
+
